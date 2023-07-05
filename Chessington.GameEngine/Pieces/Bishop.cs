@@ -13,7 +13,7 @@ namespace Chessington.GameEngine.Pieces
         {
             Square currentPosition = board.FindPiece(this);
             List<Square> possibleMoves = new List<Square>();
-            GetAvailableDiagonalMoves(possibleMoves, currentPosition);
+            GetAvailableDiagonalMoves(possibleMoves, currentPosition, 8, board);
             return possibleMoves;
         }
 

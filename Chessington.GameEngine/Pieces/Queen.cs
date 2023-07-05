@@ -16,7 +16,7 @@ namespace Chessington.GameEngine.Pieces
             GetAvailableRightLateralMoves(possibleMoves, currentPosition, 8, board);
             GetAvailableUpVerticalMoves(possibleMoves, currentPosition, 8, board);
             GetAvailableDownVerticalMoves(possibleMoves, currentPosition, 8, board);
-            GetAvailableDiagonalMoves(possibleMoves, currentPosition);
+            GetAvailableDiagonalMoves(possibleMoves, currentPosition, 8 , board);
             return possibleMoves;
         }
     }
