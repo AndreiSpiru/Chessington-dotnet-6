@@ -21,19 +21,45 @@ namespace Chessington.GameEngine.Pieces
             board.MovePiece(currentSquare, newSquare);
         }
 
-        protected void GetAvailableLateralAndVerticalMoves(List<Square> possibleMoves, Square currentPosition){
-            for (var i = 0; i < 8; i++){
-                if (i != currentPosition.Col){
-                    possibleMoves.Add(Square.At(currentPosition.Row, i));
-                }
-            }
+        protected void GetAvailableLeftLateralMoves(List<Square> possibleMoves, Square currentPosition, int distance,
+            Board board)
+        {
+            for (var i = 1; i <= distance; i++){
+                int newCol = currentPosition.Col - i;
+                if (0 > newCol || newCol > 7) break;
+                if (board.GetPiece(Square.At(currentPosition.Row, newCol)) != null) break;
+                possibleMoves.Add(Square.At(currentPosition.Row, newCol));
+            }        
+        }
 
-            for (var i = 0; i < 8; i++){
-                if (i != currentPosition.Row){
-                    possibleMoves.Add(Square.At(i, currentPosition.Col));
-                }
+        protected void GetAvailableRightLateralMoves(List<Square> possibleMoves, Square currentPosition, int distance, Board board){
+            for (var i = 1; i <= distance; i++){
+                int newCol = currentPosition.Col + i;
+                if (0 > newCol || newCol > 7) break;
+                if (board.GetPiece(Square.At(currentPosition.Row, newCol)) != null) break;
+                possibleMoves.Add(Square.At(currentPosition.Row, newCol));
             }
         }
+
+        protected void GetAvailableUpVerticalMoves(List<Square> possibleMoves, Square currentPosition, int distance, Board board){
+            for (var i = 1; i <= distance; i++){
+                int newRow = currentPosition.Row - i;
+                if (0 > newRow || newRow > 7) break;
+                if (board.GetPiece(Square.At(newRow, currentPosition.Col)) != null) break;
+                possibleMoves.Add(Square.At(newRow, currentPosition.Col));
+            }
+        }
+        
+        protected void GetAvailableDownVerticalMoves(List<Square> possibleMoves, Square currentPosition, int distance, Board board){
+            for (var i = 1; i <= distance; i++)
+            {
+                int newRow = currentPosition.Row + i;
+                if (0 > newRow || newRow > 7) break;
+                if (board.GetPiece(Square.At(newRow, currentPosition.Col)) != null) break;
+                possibleMoves.Add(Square.At(newRow, currentPosition.Col));
+            }
+        }
+
 
         protected void GetAvailableDiagonalMoves(List<Square> possibleMoves, Square currentPosition){
             int[] dx = {1,1,-1,-1};

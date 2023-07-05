@@ -11,11 +11,21 @@ namespace Chessington.GameEngine.Pieces
         public override IEnumerable<Square> GetAvailableMoves(Board board)
         {
             Square currentPosition = board.FindPiece(this);
+            int distance = 1;
             int direction = Player == Player.White ? -1 : 1;
             List<Square> possibleMoves = new List<Square>();
-            possibleMoves.Add(new Square(currentPosition.Row + direction, currentPosition.Col));
-            if(!hasMoved){
-                possibleMoves.Add(new Square(currentPosition.Row + 2 * direction, currentPosition.Col));
+            if(!hasMoved)
+            {
+                distance *= 2;
+            }
+
+            if (direction == -1)
+            {
+                GetAvailableUpVerticalMoves(possibleMoves, currentPosition, distance, board);
+            }
+            else
+            {
+                GetAvailableDownVerticalMoves(possibleMoves, currentPosition, distance, board);
             }
             return possibleMoves;
         }
