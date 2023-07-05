@@ -2,7 +2,7 @@
 using System.Linq;
 
 namespace Chessington.GameEngine.Pieces
-{
+{   
     public class Pawn : Piece
     {
         public Pawn(Player player) 
@@ -12,9 +12,11 @@ namespace Chessington.GameEngine.Pieces
         {
             Square currentPosition = board.FindPiece(this);
             int direction = Player == Player.White ? -1 : 1;
-            System.Console.WriteLine(direction);
             List<Square> possibleMoves = new List<Square>();
             possibleMoves.Add(new Square(currentPosition.Row + direction, currentPosition.Col));
+            if(!hasMoved){
+                possibleMoves.Add(new Square(currentPosition.Row + 2 * direction, currentPosition.Col));
+            }
             return possibleMoves;
         }
     }
